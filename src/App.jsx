@@ -1,11 +1,14 @@
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
-import { lazy, useEffect } from "react";
+import { Component, lazy, useEffect } from "react";
 import { setFilter } from "./redux/filtersSlice";
 import { fetchContacts } from "./redux/operations";
 import { selectError, selectLoading } from "./redux/selectors";
 import Layout from "./components/Layout";
 import { Route, Routes } from "react-router-dom";
+import RestrictedRoute from "./components/RestrictedRoute";
+import ProvateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
 
 const HomePage = lazy(() => import("./pages/Home"));
 const ContactsPage = lazy(() => import("./pages/Contacts"));
@@ -39,9 +42,33 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/contacts" element={<ContactsPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute
+                redirectPath="/login"
+                Component={<ContactsPage />}
+              />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute
+                redirectPath="/contacts"
+                Component={<RegisterPage />}
+              />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute
+                redirectPath="/contacts"
+                Component={<LoginPage />}
+              />
+            }
+          />
         </Routes>
       </Layout>
     </>
