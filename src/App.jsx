@@ -1,12 +1,16 @@
 import "./App.css";
-import ContactForm from "./components/ContactForm";
-import SearchBox from "./components/SearchBox";
-import ContactList from "./components/ContactList";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { lazy, useEffect } from "react";
 import { setFilter } from "./redux/filtersSlice";
 import { fetchContacts } from "./redux/operations";
 import { selectError, selectLoading } from "./redux/selectors";
+import Layout from "./components/Layout";
+import { Route, Routes } from "react-router-dom";
+
+const HomePage = lazy(() => import("./pages/Home"));
+const ContactsPage = lazy(() => import("./pages/Contacts"));
+const RegisterPage = lazy(() => import("./pages/Register"));
+const LoginPage = lazy(() => import("./pages/Login"));
 
 function App() {
   const dispatch = useDispatch();
@@ -32,10 +36,14 @@ function App() {
 
   return (
     <>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <SearchBox />
-      <ContactList />
+      <Layout>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/contacts" element={<ContactsPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </Layout>
     </>
   );
 }
