@@ -1,0 +1,24 @@
+.form {
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.personData {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 480px;
+}
+
+button {
+  padding: 10px;
+  margin: 10px;
+}
+
+.error {
+  color: red;
+}
