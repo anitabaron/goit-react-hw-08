@@ -7,7 +7,6 @@ import RestrictedRoute from "./components/RestrictedRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import { selectError, selectLoading } from "./redux/contacts/selectors";
 import { setFilter } from "./redux/filters/filtersSlice";
-import { fetchContacts } from "./redux/contacts/operations";
 
 const HomePage = lazy(() => import("./pages/Home"));
 const ContactsPage = lazy(() => import("./pages/Contacts"));
@@ -22,11 +21,15 @@ function App() {
   useEffect(() => {
     dispatch(setFilter(""));
   }, [dispatch]);
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
 
-  if (error) return <p>Error: {error}</p>;
+  if (error)
+    return (
+      <>
+        <Layout>
+          <p>Error: {error}</p>
+        </Layout>
+      </>
+    );
 
   if (loading)
     return (
