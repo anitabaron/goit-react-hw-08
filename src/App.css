@@ -47,8 +47,3 @@ h1 {
   margin: 0;
   margin-bottom: 50px;
 }
-
-form {
-  display: flex;
-  flex-direction: column;
-}

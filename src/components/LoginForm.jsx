@@ -1,8 +1,9 @@
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { logIn } from "../redux/auth/operations";
 import { useId } from "react";
 import * as Yup from "yup";
+import styles from "./LoginForm.module.css";
 
 export default function LoginForm() {
   const dispatch = useDispatch();
@@ -11,10 +12,7 @@ export default function LoginForm() {
 
   const logInSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
-    password: Yup.string()
-      .min(8, "Password is too short")
-      .max(25, "Password is too long")
-      .required("Required"),
+    password: Yup.string().required("Required"),
   });
 
   const handleSubmit = (values, { resetForm }) => {
@@ -35,31 +33,30 @@ export default function LoginForm() {
         validationSchema={logInSchema}
         initialValues={{ email: "", password: "" }}
       >
-        {({ errors, touched }) => (
-          <Form>
-            <label htmlFor="emailId">Email</label>
-            <Field
-              type="text"
-              name="email"
-              placeholder="Enter your email"
-              id={emailId}
-            />
-            {errors.email && touched.email ? <div>{errors.email}</div> : null}
+        <Form className={styles.form}>
+          <label htmlFor="emailId">Email</label>
+          <Field
+            type="text"
+            name="email"
+            placeholder="Enter your email"
+            id={emailId}
+          />
+          <ErrorMessage name="email" component="div" className={styles.error} />
+          <label htmlFor="passwordId">Password</label>
+          <Field
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            id={passwordId}
+          />
+          <ErrorMessage
+            name="password"
+            component="div"
+            className={styles.error}
+          />
 
-            <label htmlFor="passwordId">Password</label>
-            <Field
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              id={passwordId}
-            />
-            {errors.password && touched.password ? (
-              <div>{errors.password}</div>
-            ) : null}
-
-            <button type="submit">Login</button>
-          </Form>
-        )}
+          <button type="submit">Login</button>
+        </Form>
       </Formik>
     </>
   );
