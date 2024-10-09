@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <>
-      <h1>Phonebook</h1>
+      <h2>Welcome in Phonebook App</h2>
     </>
   );
 }

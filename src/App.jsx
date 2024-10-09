@@ -1,14 +1,13 @@
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Component, lazy, useEffect } from "react";
-import { setFilter } from "./redux/filtersSlice";
-import { fetchContacts } from "./redux/operations";
-import { selectError, selectLoading } from "./redux/selectors";
+import { lazy, useEffect } from "react";
 import Layout from "./components/Layout";
 import { Route, Routes } from "react-router-dom";
 import RestrictedRoute from "./components/RestrictedRoute";
-import ProvateRoute from "./components/PrivateRoute";
 import PrivateRoute from "./components/PrivateRoute";
+import { selectError, selectLoading } from "./redux/contacts/selectors";
+import { setFilter } from "./redux/filters/filtersSlice";
+import { fetchContacts } from "./redux/contacts/operations";
 
 const HomePage = lazy(() => import("./pages/Home"));
 const ContactsPage = lazy(() => import("./pages/Contacts"));

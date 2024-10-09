@@ -3,8 +3,8 @@ import { useId } from "react";
 import styles from "./ContactForm.module.css";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "../redux/operations";
-import { selectContacts } from "../redux/selectors";
+import { selectContacts } from "../redux/contacts/selectors";
+import { addContact } from "../redux/contacts/operations";
 
 const userSchema = Yup.object().shape({
   name: Yup.string()
