@@ -7,6 +7,8 @@ import RestrictedRoute from "./components/RestrictedRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import { selectError, selectLoading } from "./redux/contacts/selectors";
 import { setFilter } from "./redux/filters/filtersSlice";
+import { refreshUser } from "./redux/auth/operations";
+import { selectIsRefreshUser } from "./redux/auth/selectors";
 
 const HomePage = lazy(() => import("./pages/Home"));
 const ContactsPage = lazy(() => import("./pages/Contacts"));
@@ -17,10 +19,15 @@ function App() {
   const dispatch = useDispatch();
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
+  const isRefreshUser = useSelector(selectIsRefreshUser);
 
   useEffect(() => {
     dispatch(setFilter(""));
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, []);
 
   if (error)
     return (
@@ -39,7 +46,9 @@ function App() {
       </>
     );
 
-  return (
+  return isRefreshUser ? (
+    <p>refreshing...</p>
+  ) : (
     <>
       <Layout>
         <Routes>
