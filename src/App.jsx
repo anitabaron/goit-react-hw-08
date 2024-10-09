@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     dispatch(refreshUser());
-  }, []);
+  }, [dispatch]);
 
   if (error)
     return (
