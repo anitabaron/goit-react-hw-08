@@ -9,6 +9,7 @@ import { selectError, selectLoading } from "./redux/contacts/selectors";
 import { setFilter } from "./redux/filters/filtersSlice";
 import { refreshUser } from "./redux/auth/operations";
 import { selectIsRefreshUser } from "./redux/auth/selectors";
+import { fetchContacts } from "./redux/contacts/operations";
 
 const HomePage = lazy(() => import("./pages/Home"));
 const ContactsPage = lazy(() => import("./pages/Contacts"));
@@ -28,6 +29,12 @@ function App() {
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!isRefreshUser) {
+      dispatch(fetchContacts());
+    }
+  }, [dispatch, isRefreshUser]);
 
   if (error)
     return (

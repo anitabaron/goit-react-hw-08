@@ -5,14 +5,11 @@ const filtersSlice = createSlice({
   initialState: {
     filters: {
       name: "",
-      number: "",
     },
   },
   reducers: {
     setFilter(state, action) {
-      const { name, number } = action.payload;
-      if (name !== undefined) state.filters.name = name;
-      if (number !== undefined) state.filters.number = number;
+      state.filters.name = action.payload;
     },
   },
 });
